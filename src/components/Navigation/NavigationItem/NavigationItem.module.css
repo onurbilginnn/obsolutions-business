@@ -1,0 +1,25 @@
+.NavigationItem {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+}
+
+.NavigationItem a {
+    color: var(--ob_font_color);
+    text-decoration: none;
+    width: 100%;
+    box-sizing: border-box;
+    display: block;
+}
+
+.NavigationItem a:hover,
+.NavigationItem a:active,
+.NavigationItem a.active {
+    color: var(--ob_black);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.topBar_link {
+    margin: 8px 8px
+}

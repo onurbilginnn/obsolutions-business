@@ -1,0 +1,8 @@
+.MainContainer {
+  margin-top: 80px;
+}
+.CircleContainer {
+    display: inline-block;
+    border:  1px solid var(--ob_gray);
+    border-radius: 50%;
+  }
