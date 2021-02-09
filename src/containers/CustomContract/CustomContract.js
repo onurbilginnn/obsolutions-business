@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import {
     Button,
@@ -19,17 +19,18 @@ import styles from './CustomContract.module.css';
 import './customContract.css';
 
 const CustomContract = props => {
-
+    const pageLoadedCount = useRef(0);
     const date = new Date();
     const [isAccordionShown, setIsAccordionShown] = useState({
         entryTxt: false,
         lastTxt: false
     });
     const [clearForm, setClearForm] = useState(false);
-    const [deleteKey, setDeleteKey] = useState('');
+    const [isDeletion, setIsDeletion] = useState(false);
     const [companyLogo, setCompanyLogo] = useState('');
     const [childServiceRowValue, setChildServiceRowValue] = useState({});
     const [controls, setControls] = useState({
+        isTouched: false,
         companyName: '',
         entryTxt: '',
         serviceItems: [],
@@ -83,14 +84,15 @@ const CustomContract = props => {
         setControls(prevState => {
             return {
                 ...prevState,
-                companyName: compName
+                companyName: compName,
+                isTouched: true
             }
         })
     };
 
     const base64ImgHandler = base64Img => {
         setCompanyLogo(base64Img);
-    };
+      };
 
     const entryTextChangeHandler = e => {
         setControls(prevState => {
@@ -110,43 +112,54 @@ const CustomContract = props => {
     };
 
     const getServiceRowValuesHandler = values => {
-           setChildServiceRowValue(values);
+        setChildServiceRowValue(values);
     }
 
     const firstRowKey = Date.now();
-    const [serviceRows, setServiceRows] = useState([<ServiceRow 
-    onGetServiceRowValues={getServiceRowValuesHandler}
-     key={firstRowKey} jsxkey={firstRowKey.toString()} first />]);
+    const [serviceRows, setServiceRows] = useState([<ServiceRow
+        onGetServiceRowValues={getServiceRowValuesHandler}
+        key={firstRowKey} jsxkey={firstRowKey.toString()} first />]);
 
-    const deleteServiceRowHandler = key => {
-        setDeleteKey(key);
+    const deleteServiceRowHandler = values => {
+        setChildServiceRowValue(values);
+        setIsDeletion(true);
     };
 
     const addServiceRowHandler = () => {
         const serviceRowArr = serviceRows.map(obj => obj);
         const objKey = Date.now();
-        serviceRowArr.push(<ServiceRow 
-        onGetServiceRowValues={getServiceRowValuesHandler}
-         onDelete={deleteServiceRowHandler}
-          key={objKey}
-           jsxkey={objKey.toString()} />);
+        serviceRowArr.push(<ServiceRow
+            onGetServiceRowValues={getServiceRowValuesHandler}
+            onDelete={deleteServiceRowHandler}
+            key={objKey}
+            jsxkey={objKey.toString()} />);
         setServiceRows(serviceRowArr);
     };
 
     const discountHandler = e => {
+        const discountperc = e.target.value || 0;
+        const discAmount = parseFloat(controls.grandTotal) * parseFloat(discountperc) / 100;
+        const netTotal = parseFloat(controls.grandTotal) - (parseFloat(controls.taxAmount) + parseFloat(discAmount));
         setControls(prevState => {
             return {
                 ...prevState,
-                discount: parseFloat(e.target.value)
+                discount: discountperc,
+                discountAmount: discAmount,
+                netAmount: netTotal
             }
         })
     };
 
     const taxHandler = e => {
+        const taxperc = parseFloat(e.target.value);
+        const taxAmount = parseFloat(controls.grandTotal) * parseFloat(taxperc);
+        const netTotal = parseFloat(controls.grandTotal) - (parseFloat(controls.discountAmount) + parseFloat(taxAmount));
         setControls(prevState => {
             return {
                 ...prevState,
-                tax: parseFloat(e.target.value)
+                tax: taxperc,
+                taxAmount: taxAmount,
+                netAmount: netTotal
             }
         })
     };
@@ -160,62 +173,64 @@ const CustomContract = props => {
         });
     };
 
-
-    useEffect(() => {
-        const updatedServiceRows = serviceRows.filter(item => item.key !== deleteKey.toString());
-        setServiceRows(updatedServiceRows);
-    }, [deleteKey]);
-
     useEffect(() => {
         let index = -1;
-        for(let i = 0; i< serviceRows.length; i++) {
-            if(serviceRows[i].key === childServiceRowValue.rowId) {
+        for (let i = 0; i < serviceRows.length; i++) {
+            if (serviceRows[i].key === childServiceRowValue.rowId) {
                 index = i;
                 break;
             }
         }
-        if(index !== -1) {
-          const updatedServiceItems = controls.serviceItems;
-          updatedServiceItems[index] = childServiceRowValue;
-          let updatedGrandTotal = 0;
-          let updatedTaxAmount = 0;
-          let updatedDiscountAmount = 0;
-          let updatedNetAmount = 0;
-          for(let el in updatedServiceItems) {
-            updatedGrandTotal += updatedServiceItems[el].totalAmount;            
-          }
-          updatedTaxAmount = updatedGrandTotal * controls.tax;
-          updatedDiscountAmount = updatedGrandTotal * (controls.discount/100);
-          updatedNetAmount = updatedGrandTotal - updatedTaxAmount - updatedDiscountAmount;
-          setControls(prevState => {
-              return {
-                  ...prevState,
-                  serviceItems: updatedServiceItems,
-                  grandTotal: updatedGrandTotal,
-                  taxAmount: updatedTaxAmount,
-                  discountAmount: updatedDiscountAmount,
-                  netAmount: updatedNetAmount
+        if (index !== -1) {
+            let updatedServiceItems = controls.serviceItems;
+            let updatedGrandTotal = 0;
+            let updatedTaxAmount = 0;
+            let updatedDiscountAmount = 0;
+            let updatedNetAmount = 0;
+
+            if (!isDeletion) {
+                updatedServiceItems[index] = childServiceRowValue;      
+           
+            } else {
+                const updatedServiceRows = serviceRows.filter(item => item.key !== childServiceRowValue.rowId);
+                setServiceRows(updatedServiceRows);
+                setIsDeletion(false);
+                updatedServiceItems = controls.serviceItems.filter(item => item.rowId !== childServiceRowValue.rowId);
+            }
+            for (let el in updatedServiceItems) {
+                updatedGrandTotal += updatedServiceItems[el].totalAmount;
+            }
+            updatedTaxAmount = updatedGrandTotal * controls.tax;
+            updatedDiscountAmount = updatedGrandTotal * (controls.discount / 100);
+            updatedNetAmount = updatedGrandTotal - updatedTaxAmount - updatedDiscountAmount;
+
+            setControls(prevState => {
+                return {
+                    ...prevState,
+                    serviceItems: updatedServiceItems,
+                    grandTotal: updatedGrandTotal,
+                    taxAmount: updatedTaxAmount,
+                    discountAmount: updatedDiscountAmount,
+                    netAmount: updatedNetAmount,
                 }
             });
-      }
 
-    }, [childServiceRowValue]);
+            if(pageLoadedCount.current >= 2) {
+                setControls(prevState => {
+                    return {
+                        ...prevState,
+                        isTouched: true                   
+                    }
+                });
+            }
+        }
+
+    }, [childServiceRowValue, isDeletion]);
 
     useEffect(() => {
         setClearForm(false);
-
+        pageLoadedCount.current++;
     }, [controls]);
-
-    const createWordHandler = () => {
-        const wordData = {
-            logo: companyLogo.split(',')[1],
-            formData: controls
-        };
-
-        customContractToWord(wordData.logo, wordData.formData);
-
-        console.log(wordData);
-    };
 
 
     const clearFormHandler = () => {
@@ -223,19 +238,30 @@ const CustomContract = props => {
         setCompanyLogo('');
         setControls({
             companyName: '',
-        entryTxt: '',
-        serviceItems: [],
-        lastTxt: '',
-        date: date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear(),
-        discount: 0,
-        tax: 0,
-        isSignAreaVisible: false
+            entryTxt: '',
+            serviceItems: [],
+            lastTxt: '',
+            date: date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear(),
+            discount: 0,
+            tax: 0,
+            isSignAreaVisible: false
         });
-        setServiceRows([<ServiceRow 
+        setServiceRows([<ServiceRow
             onGetServiceRowValues={getServiceRowValuesHandler}
-             key={firstRowKey} jsxkey={firstRowKey.toString()} first />]);
+            key={firstRowKey} jsxkey={firstRowKey.toString()} first />]);
 
     }
+
+    const createWordHandler = () => {
+        const updatedcontractRowHeaderArr = contractRowHeaderArr.map(el => el);
+        updatedcontractRowHeaderArr[0].label = 'No';
+        const wordData = {
+            logo: companyLogo.split(',')[1],
+            formData: controls,
+            contractTableHeaders: updatedcontractRowHeaderArr
+        };
+        customContractToWord(wordData.logo, wordData.formData, wordData.contractTableHeaders);
+    };
 
     return (
         <div className={styles.CustomContractContainer + " customContractContainer"}>
@@ -251,7 +277,7 @@ const CustomContract = props => {
                 <div className={styles.SectionContainer} >
                     <Form.Label>Logo</Form.Label>
                     <SingleFileDropZone
-                    formClear={clearForm}
+                        formClear={clearForm}
                         droptext={"Bu alana tıklayın veya dosyayı sürükleyin"}
                         dropnote={"Sadece 3MB'den küçük jpg,jpeg,png dosyası yüklenebilir!"}
                         acceptedFiles={"image/jpeg, image/jpg, image/png"}
@@ -284,6 +310,54 @@ const CustomContract = props => {
                         onClick={addServiceRowHandler}
                     >Satır Ekle</Button>
                 </Form.Row>
+                <Form.Row className="justify-content-around align-items-center" >
+
+                    <Form.Group as={Row}>
+                        <Form.Label column sm={2}>İndirim</Form.Label>
+                        <Col sm={10}>
+                            <InputGroup className="col-md-6">
+                                <Form.Control
+                                    onChange={discountHandler}
+                                    value={controls.discount}
+                                    type="number" />
+                                <InputGroup.Prepend>
+                                    <InputGroup.Text>%</InputGroup.Text>
+                                </InputGroup.Prepend>
+
+                            </InputGroup>
+                        </Col>
+
+                    </Form.Group>
+                    <Form.Group as={Row}>
+                        <Form.Label column sm={2}>KDV</Form.Label>
+                        <Col sm={10}>
+                            <InputGroup className="col-md-11">
+                                <Form.Control as="select" onChange={taxHandler} value={controls.tax} >
+                                    <option value={0} >0</option>
+                                    <option value={0.08}>%8</option>
+                                    <option value={0.18}>%18</option>
+                                </Form.Control>
+                            </InputGroup>
+                        </Col>
+
+                    </Form.Group>
+                </Form.Row>
+                <div className={styles.TotalsContainer} >
+                    <Form.Row >
+                        <Form.Label>Toplam Tutar_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _{parseFloat(controls.grandTotal).toFixed(2)}</Form.Label>
+                    </Form.Row>
+                    {parseFloat(controls.discount) !== 0 && <Form.Row >
+                        <Form.Label>İndirim Tutarı_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _{parseFloat(controls.discountAmount).toFixed(2)}</Form.Label>
+                    </Form.Row>}
+
+                    {controls.tax !== 0 &&
+                        <Form.Row >
+                            <Form.Label>KDV Tutarı_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ {parseFloat(controls.taxAmount).toFixed(2)}</Form.Label>
+                        </Form.Row>}
+                    <Form.Row >
+                        <Form.Label>Net Tutar _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ {parseFloat(controls.netAmount).toFixed(2)}</Form.Label>
+                    </Form.Row>
+                </div>
                 <hr />
                 <div className={styles.SectionContainer} >
                     <OBAccordion
@@ -297,47 +371,22 @@ const CustomContract = props => {
                     />
                 </div>
             </div>
+
             <Form.Row className="justify-content-around align-items-center" >
-
-                <Form.Group as={Row}>
-                    <Form.Label column sm={2}>İndirim</Form.Label>
-                    <Col sm={10}>
-                        <InputGroup className="col-md-6">
-                            <Form.Control onChange={discountHandler} value={controls.discount} type="number" />
-                            <InputGroup.Prepend>
-                                <InputGroup.Text>%</InputGroup.Text>
-                            </InputGroup.Prepend>
-
-                        </InputGroup>
-                    </Col>
-
-                </Form.Group>
-                <Form.Group as={Row}>
-                    <Form.Label column sm={2}>KDV</Form.Label>
-                    <Col sm={10}>
-                        <InputGroup className="col-md-11">
-                            <Form.Control as="select" onChange={taxHandler} value={controls.tax} >
-                                <option value={0} >0</option>
-                                <option value={0.08}>%8</option>
-                                <option value={0.18}>%18</option>
-                            </Form.Control>
-                        </InputGroup>
-                    </Col>
-
-                </Form.Group>
                 <Form.Group >
                     <Form.Check
-                     onChange={signatureToggleHandler}
-                      size="lg"
-                       type="checkbox"
+                        onChange={signatureToggleHandler}
+                        size="lg"
+                        type="checkbox"
                         label="İmza Alanı Ekle"
-                       checked={controls.isSignAreaVisible} />
+                        checked={controls.isSignAreaVisible} />
                 </Form.Group>
             </Form.Row>
             <ButtonGroup>
-                <Button onClick={createWordHandler} >Word Oluştur</Button>
+                <Button onClick={createWordHandler} disabled={controls.companyName === '' } >Word Oluştur</Button>
                 <Button variant="danger" onClick={clearFormHandler} >Temizle</Button>
             </ButtonGroup>
+                {(controls.companyName === '' && controls.isTouched) && <p className="text-danger" >Şirket ismi giriniz!!</p>}
         </div>
     );
 };

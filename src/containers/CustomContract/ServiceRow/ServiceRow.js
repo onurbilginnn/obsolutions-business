@@ -12,7 +12,7 @@ const ServiceRow = props => {
     const [serviceRowValues, setServiceRowValues] = useState({
         rowId: props.jsxkey,
         qty: '',
-        unitType: '',
+        unitType: 'Adet',
         serviceDesc: '',
         unitPrice: '',
         totalAmount: ''
@@ -23,7 +23,7 @@ const ServiceRow = props => {
            return{
                ...prevState,
                qty: e.target.value,
-               totalAmount: parseFloat(e.target.value) * parseFloat(prevState.unitPrice)
+               totalAmount: parseFloat(e.target.value) * parseFloat(prevState.unitPrice) || 0
            };
         });
     };
@@ -32,7 +32,7 @@ const ServiceRow = props => {
         setServiceRowValues(prevState => {
            return{
                ...prevState,
-               unitType: parseFloat(e.target.value)
+               unitType: e.target.value
            };
         });
     };
@@ -50,8 +50,8 @@ const ServiceRow = props => {
         setServiceRowValues(prevState => {
             return{
                 ...prevState,
-                unitPrice: parseFloat(e.target.value),
-                totalAmount: parseFloat(e.target.value) * parseFloat(prevState.qty)
+                unitPrice: e.target.value ,
+                totalAmount: parseFloat(e.target.value) * parseFloat(prevState.qty) || 0
             };
          });
     }
@@ -66,7 +66,7 @@ const ServiceRow = props => {
     <ButtonGroup >
         <Button
          variant="danger"
-         onClick={() => props.onDelete(props.jsxkey)}
+         onClick={() => props.onDelete(serviceRowValues)}
           disabled={props.first} >Sil</Button>
     </ButtonGroup>
 </Form.Group>
