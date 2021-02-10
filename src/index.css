@@ -26,3 +26,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.ob_link {
+	color: #343a40;
+}
+
+
+.ob_link:hover {
+	color: black;
+}

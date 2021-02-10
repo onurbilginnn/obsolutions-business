@@ -13,14 +13,22 @@ const CustomContract =  React.lazy(() => {
   return import('./containers/CustomContract/CustomContract');
 });
 
+const ContactPage = React.lazy(() => {
+  return import('./pages/Contact/Contact');
+});
+
+
+const HomePage =  React.lazy(() => {
+  return import('./pages/Home/Home');
+});
+
+
 let routes = (
   <Switch>
-     {/* <Route path="/contact" render={(props) => <Contact {...props}/>} />
-     <Route path="/plugins" render={(props) => <Plugins {...props}/>} />
-     <Route path="/services" render={(props) => <Services {...props}/>} />
-     <Route path="/about" render={(props) => <About {...props}/>} /> */}
+      <Route path="/contact" exact component={ContactPage} />  
       <Route path="/custom-contract" exact component={CustomContract} />
-      <Route path="/" exact component={ExpoContract} />
+      <Route path="/expo-contract" exact component={ExpoContract} />
+      <Route path="/" exact component={HomePage} />
       <Redirect to="/" />
   </Switch>
 );

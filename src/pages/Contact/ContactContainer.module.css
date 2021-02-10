@@ -1,0 +1,10 @@
+.ContactContainer {
+    width: 100%;
+    margin: 150px auto 100px auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+}

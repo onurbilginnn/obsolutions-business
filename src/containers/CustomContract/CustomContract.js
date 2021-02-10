@@ -9,11 +9,11 @@ import {
     InputGroup
 } from 'react-bootstrap';
 
-import SingleFileDropZone from '../../components/UI/DropZone/DropZoneSingleFile';
+import CompanyAndLogo from '../../components/UI/CompanyAndLogo/CompanyAndLogo';
 import ServiceRow from './ServiceRow/ServiceRow';
 import OBAccordion from '../../components/UI/OBAccordion/OBAccordion';
 import ServiceRowHeader from './ServiceRow/ServiceRowHeader';
-import customContractToWord from './customContract_word';
+import customContractToWord from '../../util/Word/customContract_word';
 
 import styles from './CustomContract.module.css';
 import './customContract.css';
@@ -168,7 +168,9 @@ const CustomContract = props => {
         setControls(prevState => {
             return {
                 ...prevState,
-                isSignAreaVisible: !prevState.isSignAreaVisible
+                isSignAreaVisible: !prevState.isSignAreaVisible,
+        isTouched: true
+
             }
         });
     };
@@ -265,28 +267,20 @@ const CustomContract = props => {
 
     return (
         <div className={styles.CustomContractContainer + " customContractContainer"}>
-            <Form.Row className="justify-content-around align-items-center">
-                <div className={styles.SectionContainer} >
-                    <Form.Label>Şirket İsmi</Form.Label>
-                    <Form.Control
-                        onChange={companyNameHandler}
-                        value={controls.companyName}
-                        type="text"
-                        placeholder="Şirket İsmi" />
-                </div>
-                <div className={styles.SectionContainer} >
-                    <Form.Label>Logo</Form.Label>
-                    <SingleFileDropZone
-                        formClear={clearForm}
-                        droptext={"Bu alana tıklayın veya dosyayı sürükleyin"}
-                        dropnote={"Sadece 3MB'den küçük jpg,jpeg,png dosyası yüklenebilir!"}
-                        acceptedFiles={"image/jpeg, image/jpg, image/png"}
-                        file_type_error={"Lütfen sadece 3MB'den küçük jpg,jpeg,png dosyası yükleyin!"}
-                        getBase64Img={base64ImgHandler}
-                        maxFileSize={3}
-                    />
-                </div>
-            </Form.Row>
+            <CompanyAndLogo 
+            onInputChange={companyNameHandler}
+            inputValue={controls.companyName}
+            inputType="text"
+            inputPlaceholder="Şirket İsmi"
+            dropZoneLabel="Logo"
+            onClearDropzone={clearForm}
+            dropTxt="Bu alana tıklayın veya dosyayı sürükleyin"
+            dropNote="Sadece 3MB'den küçük jpg,jpeg,png dosyası yüklenebilir!"
+            fileTypes="image/jpeg, image/jpg, image/png"
+            file_type_error_msg="Lütfen sadece 3MB'den küçük jpg,jpeg,png dosyası yükleyin!"
+            ongetbase64={base64ImgHandler}
+            maxFileSize={3}
+            />
             <div className={styles.SectionContainer} >
                 <OBAccordion
                     title="Giriş Yazısı"
@@ -382,7 +376,7 @@ const CustomContract = props => {
                         checked={controls.isSignAreaVisible} />
                 </Form.Group>
             </Form.Row>
-            <ButtonGroup>
+            <ButtonGroup className="col-md-6">
                 <Button onClick={createWordHandler} disabled={controls.companyName === '' } >Word Oluştur</Button>
                 <Button variant="danger" onClick={clearFormHandler} >Temizle</Button>
             </ButtonGroup>

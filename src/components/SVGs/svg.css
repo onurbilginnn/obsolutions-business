@@ -1,0 +1,54 @@
+.hoverable:hover{
+  cursor:pointer;
+}
+
+.link {
+  text-decoration: none;
+}
+
+
+.link:hover {
+  text-decoration: none;
+}
+
+
+/******* Main Logo SVG *******/
+
+.mainLogoSVG {
+  height: 15mm;
+  width: auto;
+}
+
+/******* Main Logo SVG *******/
+
+
+/******* Pencil SVG *******/
+
+.pencilSVG {
+  margin: 20px;
+  height: 150mm;
+  width: auto;
+  border: 1px solid var(--ob_font_color);
+  border-radius: 50%;
+}
+
+@media only screen and (max-width: 1280px) {
+  .pencilSVG {
+    height: 120mm;
+  }
+}
+
+@media only screen and (max-width: 780px) {
+  .pencilSVG {
+    height: 100mm;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .pencilSVG {
+    height: 60mm;
+  }
+}
+
+/******* Pencil SVG *******/
+

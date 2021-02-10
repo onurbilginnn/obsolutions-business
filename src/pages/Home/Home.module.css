@@ -1,0 +1,16 @@
+.HomeContainer {
+    margin: 150px auto 100px auto;
+    width: 100%;
+    min-height: 70vh;
+}
+
+.ImgTxtContainer {
+    margin: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.TxtContainer {
+    padding: 10px;
+}

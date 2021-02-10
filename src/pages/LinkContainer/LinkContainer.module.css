@@ -1,0 +1,24 @@
+.InfoLinkContainer {
+    margin-left: 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+}
+
+.InfoLink {
+    margin: 10px 15px 0 0;
+}
+
+.InfoLinkIcon {
+    color: white;
+}
+
+.InfoLinkIcon:hover{
+    color: var(--red);
+}
+
+@media (max-width: 1400px) {
+    .InfoLinkContainer {
+        justify-content: center;
+    }
+}

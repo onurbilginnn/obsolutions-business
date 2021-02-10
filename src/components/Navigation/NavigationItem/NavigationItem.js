@@ -7,7 +7,7 @@ const TopNavBar = (props) => {
  
   return (
     <div className={styles.NavigationItem + " " + props.classes}>  
-      <NavLink       
+      <NavLink  
        to={props.link}
        exact={props.exact}
        activeClassName={styles.active} >{props.children}</NavLink>
