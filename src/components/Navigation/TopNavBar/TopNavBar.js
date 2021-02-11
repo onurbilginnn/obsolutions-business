@@ -40,7 +40,7 @@ const TopNavBar = props => {
                   Teklif Taslağı
                 </NavigationItem>
                 <NavigationItem classes="ml-4" link="/expo-contract">
-                  Kira Taslağı
+                  Alan Taslağı
                 </NavigationItem>
               </NavDropdown>
             </NavDropdown>
