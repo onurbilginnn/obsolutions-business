@@ -66,10 +66,7 @@ const expoContractWord = (img = '', data, contractTableHeaders) => {
       }),
       new TableCell({  
         children:[new Paragraph('')]     
-      }),
-      new TableCell({  
-        children:[new Paragraph('')]     
-      }),
+      }),    
       new TableCell({  
         children:[new Paragraph({
          text: subTotalName,
@@ -148,13 +145,12 @@ const expoContractWord = (img = '', data, contractTableHeaders) => {
     });
   };
   const firstLineIndent = 800;
-
     
     const contractTableHeaderCells = [];
     for (let header in contractTableHeaders) {
       contractTableHeaderCells.push(new TableCell({        
         children: [new Paragraph({
-          text: contractTableHeaders[header].label,   
+          text: contractTableHeaders[header],   
           heading: HeadingLevel.HEADING_3       
         })],
         width: {
@@ -172,16 +168,10 @@ const expoContractWord = (img = '', data, contractTableHeaders) => {
     const contractTableAllRows = [];
     contractTableAllRows.push(contractTableHeader);
 
-      const contractTableDataCells = [];
-      
-      let meterSq = new Paragraph('');
-      let currency = new Paragraph('');
-      let currencyType = new Paragraph('');
-      let unitPrice = new Paragraph('');
-      let stampTax = new Paragraph('');
+      const contractTableDataCells = [];      
+     
       let signArea = [new Paragraph(''), new Paragraph('')];
 
-    
         contractTableDataCells.push(new TableCell({        
           children: [new Paragraph({
             text: data.meterSq.toString(),          
@@ -192,23 +182,73 @@ const expoContractWord = (img = '', data, contractTableHeaders) => {
           },
           margins: contractTableMargins,
           verticalAlign: AlignmentType.CENTER
-        }));      
+        }));   
+        
+        contractTableDataCells.push(new TableCell({        
+          children: [new Paragraph({
+            text: data.unitPrice.toString(),          
+          })],
+          width: {
+            size:16,
+            type: "pct"
+          },
+          margins: contractTableMargins,
+          verticalAlign: AlignmentType.CENTER
+        }));   
+
+        contractTableDataCells.push(new TableCell({        
+          children: [new Paragraph({
+            text: data.currencyType.toString(),          
+          })],
+          width: {
+            size:16,
+            type: "pct"
+          },
+          margins: contractTableMargins,
+          verticalAlign: AlignmentType.CENTER
+        }));  
+        
+        contractTableDataCells.push(new TableCell({        
+          children: [new Paragraph({
+            text: data.currency.toString(),          
+          })],
+          width: {
+            size:16,
+            type: "pct"
+          },
+          margins: contractTableMargins,
+          verticalAlign: AlignmentType.CENTER
+        })); 
+
+        contractTableDataCells.push(new TableCell({        
+          children: [new Paragraph({
+            text: data.stampTax.toString(),          
+          })],
+          width: {
+            size:16,
+            type: "pct"
+          },
+          margins: contractTableMargins,
+          verticalAlign: AlignmentType.CENTER,          
+        })); 
 
         contractTableAllRows.push(new TableRow({
           children: contractTableDataCells,
           height: {
             height: 500,
-          }
+          },          
         }));
 
-    // contractTableAllRows.push(createContractRowGrands('Genel Toplam', data.grandTotal.toFixed(2)));
-    // parseFloat(data.discount) !== 0 && contractTableAllRows.push(createContractRowGrands('İndirim', data.discountAmount.toFixed(2) ,'%' + data.discount));
-    // parseFloat(data.tax) !== 0 && contractTableAllRows.push(createContractRowGrands('KDV', data.taxAmount.toFixed(2) ,'%' + data.tax));
-    // contractTableAllRows.push(createContractRowGrands('Net Toplam', data.netAmount));
+        contractTableAllRows.push(createContractRowGrands('Br. Fiyat', data.unitPriceTL.toFixed(2), 'TL'));
+        contractTableAllRows.push(createContractRowGrands('Net Tutar', data.netTotalTL.toFixed(2), 'TL'));
+        contractTableAllRows.push(createContractRowGrands('KDV', data.KDVTL.toFixed(2), '%18'));
+        contractTableAllRows.push(createContractRowGrands('Damga Vergisi Tutarı', data.stampTaxTL.toFixed(2), data.stampTax.toString()));
+        contractTableAllRows.push(createContractRowGrands('Toplam Tutar', data.totalTL.toFixed(2), 'TL'));
+
 
     const contractTable = new Table({
       alignment: AlignmentType.CENTER,
-      rows: contractTableAllRows
+      rows: contractTableAllRows,
     });    
 
   /****** Sign Area ******/

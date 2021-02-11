@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 
 import {
   Form,
@@ -30,11 +30,7 @@ const ExpoContract = (props) => {
     date: date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear(),
     unitPrice: 0,
     stampTax: 0,
-    isSignAreaVisible: false,
-    grandTotal: 0,
-    taxAmount: 0,
-    discountAmount: 0,
-    netAmount: 0,
+    isSignAreaVisible: false,   
   });
   const fixedDecimalDigit = 2;
 
@@ -100,18 +96,20 @@ const ExpoContract = (props) => {
       date: date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear(),
       unitPrice: 0,
       stampTax: 0,
-      isSignAreaVisible: false,
-      grandTotal: 0,
-      taxAmount: 0,
-      discountAmount: 0,
-      netAmount: 0,
+      isSignAreaVisible: false,   
     });
   };
   const createWordHandler = () => {
-    const contractRowHeaderArr = ['M2','Kur','Kur Tipi','Br. Fiyat','Damga Vergisi'];
+    const contractRowHeaderArr = ['M2','Br. Fiyat','Kur Tipi','Kur/TL','Damga Vergisi Oranı'];
     const wordData = {
       logo: companyLogo.split(',')[1],
-      formData: controls,
+      formData: {...controls,
+        unitPriceTL: unitPriceTL,
+        netTotalTL: netTotalTL,
+        KDVTL: KDVTL,
+        stampTaxTL: stampTaxTL,
+        totalTL: totalTL
+      },
       contractTableHeaders: contractRowHeaderArr
   };
   expoContractToWord(wordData.logo, wordData.formData, wordData.contractTableHeaders);
