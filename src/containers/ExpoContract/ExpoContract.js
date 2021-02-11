@@ -317,7 +317,7 @@ const ExpoContract = (props) => {
                 <Button onClick={createWordHandler} disabled={controls.companyName === '' } >Word Oluştur</Button>
                 <Button variant="danger" onClick={clearFormHandler} >Temizle</Button>
             </ButtonGroup>
-                {(controls.companyName === '' && controls.isTouched) && <p className="text-danger" >Şirket ismi giriniz!!</p>}
+                {(controls.companyName === '' && controls.isTouched) && <p className="text-danger" >Word çıktısı için şirket ismi giriniz!</p>}
           </Form>
         </div>
       </div>
