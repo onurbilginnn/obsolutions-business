@@ -1,16 +1,15 @@
 import React, { Suspense } from 'react';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
-// import { HashRouter as Router } from 'react-router-dom';
+
 import './App.css';
 
 import Layout from './hoc/Layout/Layout';
 
-const ExpoContract = React.lazy(() => {
+const ExpoContract =  React.lazy(() => {
   return import('./containers/AreaContract/AreaContract');
 });
 
-const CustomContract = React.lazy(() => {
+const CustomContract =  React.lazy(() => {
   return import('./containers/CustomContract/CustomContract');
 });
 
@@ -19,30 +18,28 @@ const ContactPage = React.lazy(() => {
 });
 
 
-const HomePage = React.lazy(() => {
+const HomePage =  React.lazy(() => {
   return import('./pages/Home/Home');
 });
 
 
 let routes = (
   <Switch>
-    <Route path="/contact" exact component={ContactPage} />
-    <Route path="/custom-contract" exact component={CustomContract} />
-    <Route path="/area-contract" exact component={ExpoContract} />
-    <Route path="/" exact component={HomePage} />
-    <Redirect to="/" />
+      <Route path="/contact" exact component={ContactPage} />  
+      <Route path="/custom-contract" exact component={CustomContract} />
+      <Route path="/area-contract" exact component={ExpoContract} />
+      <Route path="/" exact component={HomePage} />
+      <Redirect to="/" />
   </Switch>
 );
 
 function App() {
   return (
-    <Layout>
-      <Suspense fallback={<p>Loading...</p>}>
-        <Router basename={process.env.PUBLIC_URL} >
+      <Layout>
+        <Suspense fallback={<p>Loading...</p>}>
           {routes}
-        </Router>
-      </Suspense>
-    </Layout>
+        </Suspense>
+      </Layout>
   );
 }
 

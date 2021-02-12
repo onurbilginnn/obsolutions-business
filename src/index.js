@@ -2,14 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-
+import { BrowserRouter as MainRouter } from 'react-router-dom';
+// import { HashRouter as MainRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 
 import 'bootstrap/dist/css/bootstrap.css';
 
 
 ReactDOM.render(
-    <App />,
+  <MainRouter basename={process.env.PUBLIC_URL} >
+    <App />
+    </MainRouter>,
   document.getElementById('root')
 );
 
