@@ -35,3 +35,9 @@ code {
 .ob_link:hover {
 	color: black;
 }
+
+@media (max-width: 600px) {
+	.desktop-only {
+		display: none;
+	}
+}

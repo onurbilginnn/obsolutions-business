@@ -117,6 +117,7 @@ const ExpoContract = (props) => {
 
   return (
     <>
+    <div className="desktop-only" >
       <Accordion className="mb-5" style={{marginTop:"100px"}}>
         <Card>
           <Card.Header className="text-center">
@@ -149,10 +150,11 @@ const ExpoContract = (props) => {
           </Accordion.Collapse>
         </Card>
       </Accordion>
+    </div>
       <div className="mb-5 container">
         <div className="row">
           <div className="col col-md-3"></div>
-          <Form className="col-md-6 text-center">
+          <Form className="col-md-6 mt-2 text-center">
       <h3>Veri Girişi</h3>
             <hr />
             <div className="row ">
@@ -303,6 +305,7 @@ const ExpoContract = (props) => {
               </InputGroup>
             </Col>
 
+            <div className="desktop-only" >
             <Form.Row className="justify-content-around align-items-center" >
                 <Form.Group >
                     <Form.Check
@@ -318,6 +321,7 @@ const ExpoContract = (props) => {
                 <Button variant="danger" onClick={clearFormHandler} >Temizle</Button>
             </ButtonGroup>
                 {(controls.companyName === '' && controls.isTouched) && <p className="text-danger" >Word çıktısı için şirket ismi giriniz!</p>}
+            </div>
           </Form>
         </div>
       </div>

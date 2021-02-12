@@ -267,6 +267,8 @@ const CustomContract = props => {
 
     return (
         <div className={styles.CustomContractContainer + " customContractContainer"}>
+            <div className="desktop-only" >
+
             <CompanyAndLogo 
             onInputChange={companyNameHandler}
             inputValue={controls.companyName}
@@ -292,8 +294,8 @@ const CustomContract = props => {
                     onTextChange={entryTextChangeHandler}
                 />
             </div>
+            </div>
             <div className={styles.SectionContainer} >
-                <hr />
                 <Form.Row style={{ marginBottom: "-25px" }}>
                     {contractRowHeaders}
                 </Form.Row>
@@ -352,7 +354,7 @@ const CustomContract = props => {
                         <Form.Label>Net Tutar _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ {parseFloat(controls.netAmount).toFixed(2)}</Form.Label>
                     </Form.Row>
                 </div>
-                <hr />
+            <div className="desktop-only" >
                 <div className={styles.SectionContainer} >
                     <OBAccordion
                         title="Son Yazı"
@@ -364,7 +366,9 @@ const CustomContract = props => {
                         onTextChange={lastTextChangeHandler}
                     />
                 </div>
+                </div>
             </div>
+            <div className="desktop-only" >
 
             <Form.Row className="justify-content-around align-items-center" >
                 <Form.Group >
@@ -381,6 +385,7 @@ const CustomContract = props => {
                 <Button variant="danger" onClick={clearFormHandler} >Temizle</Button>
             </ButtonGroup>
                 {(controls.companyName === '' && controls.isTouched) && <p className="text-danger" >Word çıktısı için şirket ismi giriniz!!</p>}
+            </div>
         </div>
     );
 };
