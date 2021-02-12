@@ -1,6 +1,6 @@
 {
-  "homepage": "http://onurbilginnn.github.io/obsolutions-business-plugins",
-  "name": "obsolutions-business-plugins",
+  "homepage": "http://onurbilginnn.github.io/obsolutions-business",
+  "name": "obsolutions-business",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
