@@ -14,7 +14,7 @@ const TopNavBar = props => {
   return (
     <div>
       <Navbar bg="light" expand="lg" fixed="top">
-        <Navbar.Brand className="ml-5">
+        <Navbar.Brand className={width > 780 && "ml-5" } >
           {width > 780
             ? <img
                 className="top-nav-bar-big-logo"
