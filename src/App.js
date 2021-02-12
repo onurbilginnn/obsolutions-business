@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
-// import { BrowserRouter } from 'react-router-dom';
-import { HashRouter } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+// import { HashRouter as Router } from 'react-router-dom';
 import './App.css';
 
 import Layout from './hoc/Layout/Layout';
@@ -38,9 +38,9 @@ function App() {
   return (
     <Layout>
       <Suspense fallback={<p>Loading...</p>}>
-        <HashRouter basename={process.env.PUBLIC_URL} >
+        <Router basename={process.env.PUBLIC_URL} >
           {routes}
-        </HashRouter>
+        </Router>
       </Suspense>
     </Layout>
   );
