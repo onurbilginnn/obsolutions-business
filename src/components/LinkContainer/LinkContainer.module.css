@@ -1,8 +1,6 @@
 .InfoLinkContainer {
-    margin-left: 5%;
     display: flex;
     flex-direction: row;
-    justify-content: left;
 }
 
 .InfoLink {
@@ -10,11 +8,11 @@
 }
 
 .InfoLinkIcon {
-    color: white;
+    color: var(--ob_black);
 }
 
 .InfoLinkIcon:hover{
-    color: var(--red);
+    color: var(--ob_gray);
 }
 
 @media (max-width: 1400px) {

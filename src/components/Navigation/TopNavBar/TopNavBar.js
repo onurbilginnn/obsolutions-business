@@ -3,6 +3,7 @@ import {Navbar, Nav, NavDropdown} from 'react-bootstrap';
 
 import NavigationItem from '../NavigationItem/NavigationItem';
 import useWindowSize from '../../../hooks/useWindowSize/useWindowSize';
+import LinkContainer from '../../LinkContainer/LinkContainer';
 import obLogo from '../../../assets/SVGs/OB.svg';
 import bigObLogo from '../../../assets/SVGs/OBSolutions.svg';
 
@@ -10,12 +11,14 @@ import './topNavBar.css';
 
 const TopNavBar = props => {
   const {width} = useWindowSize ();
+  const changeWidth = 990;
+  console.log(width);
 
   return (
     <div>
       <Navbar bg="light" expand="lg" fixed="top">
-        <Navbar.Brand className={width > 780 && "ml-5" } >
-          {width > 780
+        <Navbar.Brand  >
+          {width > changeWidth
             ? <img
                 className="top-nav-bar-big-logo"
                 src={bigObLogo}
@@ -27,6 +30,7 @@ const TopNavBar = props => {
                 alt="OB Solutions Logo"
               />}
         </Navbar.Brand>
+        {width <= changeWidth && <LinkContainer />}
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav>
@@ -58,6 +62,7 @@ const TopNavBar = props => {
       <Button variant="outline-success">Search</Button>
     </Form> */}
         </Navbar.Collapse>
+        {width > changeWidth && <LinkContainer />}
       </Navbar>
     </div>
   );

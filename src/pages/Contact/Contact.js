@@ -1,7 +1,7 @@
 import React from 'react';
 import {Card} from 'react-bootstrap';
 
-import LinkContainer from '../LinkContainer/LinkContainer';
+import LinkContainer from '../../components/LinkContainer/LinkContainer';
 import {FaAddressBook, FaMailBulk, FaPhone} from 'react-icons/fa';
 
 import styles from './ContactContainer.module.css';
@@ -9,9 +9,8 @@ import styles from './ContactContainer.module.css';
 const ContactContainer = () => {  
 
   return ( 
-     <div className={styles.ContactContainer}>
-       
-                  <LinkContainer center /> 
+     <div className={styles.ContactContainer}>   
+                  
                   <Card  
                   text="dark"
                   style={{ width: '18rem' }}
@@ -39,6 +38,7 @@ const ContactContainer = () => {
       </Card.Text>
     </Card.Body>
   </Card>
+  <LinkContainer  /> 
     </div>
   );
 };

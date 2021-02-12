@@ -4,12 +4,10 @@ import {FaGithub, FaLinkedin} from 'react-icons/fa';
 import styles from './LinkContainer.module.css';
 
 const LinkContainer = props => {
-    let myStyle = {};
-    if(props.center) {
-        myStyle = {
-            justifyContent: 'center'
+       const myStyle = {
+            justifyContent: props.justify
         }
-    }
+
 
     return <div className={styles.InfoLinkContainer} style={myStyle} >
 <a className={styles.InfoLink}
