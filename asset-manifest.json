@@ -3,13 +3,13 @@
     "static/js/0.6ddcb6e1.chunk.js": "/obsolutions-business/static/js/0.6ddcb6e1.chunk.js",
     "static/js/0.6ddcb6e1.chunk.js.map": "/obsolutions-business/static/js/0.6ddcb6e1.chunk.js.map",
     "main.css": "/obsolutions-business/static/css/main.c8a367c1.chunk.css",
-    "main.js": "/obsolutions-business/static/js/main.5aedd393.chunk.js",
-    "main.js.map": "/obsolutions-business/static/js/main.5aedd393.chunk.js.map",
+    "main.js": "/obsolutions-business/static/js/main.72cf62a5.chunk.js",
+    "main.js.map": "/obsolutions-business/static/js/main.72cf62a5.chunk.js.map",
     "runtime-main.js": "/obsolutions-business/static/js/runtime-main.62cef648.js",
     "runtime-main.js.map": "/obsolutions-business/static/js/runtime-main.62cef648.js.map",
     "static/css/3.658248ec.chunk.css": "/obsolutions-business/static/css/3.658248ec.chunk.css",
-    "static/js/3.db4330bf.chunk.js": "/obsolutions-business/static/js/3.db4330bf.chunk.js",
-    "static/js/3.db4330bf.chunk.js.map": "/obsolutions-business/static/js/3.db4330bf.chunk.js.map",
+    "static/js/3.aadb6c94.chunk.js": "/obsolutions-business/static/js/3.aadb6c94.chunk.js",
+    "static/js/3.aadb6c94.chunk.js.map": "/obsolutions-business/static/js/3.aadb6c94.chunk.js.map",
     "static/css/4.5474f3b1.chunk.css": "/obsolutions-business/static/css/4.5474f3b1.chunk.css",
     "static/js/4.266cc3de.chunk.js": "/obsolutions-business/static/js/4.266cc3de.chunk.js",
     "static/js/4.266cc3de.chunk.js.map": "/obsolutions-business/static/js/4.266cc3de.chunk.js.map",
@@ -34,7 +34,7 @@
     "static/css/7.027f7ed7.chunk.css.map": "/obsolutions-business/static/css/7.027f7ed7.chunk.css.map",
     "static/css/main.c8a367c1.chunk.css.map": "/obsolutions-business/static/css/main.c8a367c1.chunk.css.map",
     "static/js/0.6ddcb6e1.chunk.js.LICENSE.txt": "/obsolutions-business/static/js/0.6ddcb6e1.chunk.js.LICENSE.txt",
-    "static/js/3.db4330bf.chunk.js.LICENSE.txt": "/obsolutions-business/static/js/3.db4330bf.chunk.js.LICENSE.txt",
+    "static/js/3.aadb6c94.chunk.js.LICENSE.txt": "/obsolutions-business/static/js/3.aadb6c94.chunk.js.LICENSE.txt",
     "static/media/Microsoft_Office_Word.baefbedd.svg": "/obsolutions-business/static/media/Microsoft_Office_Word.baefbedd.svg",
     "static/media/OB.58df086d.svg": "/obsolutions-business/static/media/OB.58df086d.svg",
     "static/media/OBSolutions.d3972535.svg": "/obsolutions-business/static/media/OBSolutions.d3972535.svg"
@@ -42,8 +42,8 @@
   "entrypoints": [
     "static/js/runtime-main.62cef648.js",
     "static/css/3.658248ec.chunk.css",
-    "static/js/3.db4330bf.chunk.js",
+    "static/js/3.aadb6c94.chunk.js",
     "static/css/main.c8a367c1.chunk.css",
-    "static/js/main.5aedd393.chunk.js"
+    "static/js/main.72cf62a5.chunk.js"
   ]
 }
