@@ -17,7 +17,7 @@ const TopNavBar = props => {
   return (
     <div>
       <Navbar bg="light" expand="lg" fixed="top">
-        <Navbar.Brand  >
+        <Navbar.Brand href="https://obsolutions.co/" target="_blank" rel="noreferrer noopener"  >
           {width > changeWidth
             ? <img
                 className="top-nav-bar-big-logo"
