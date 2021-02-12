@@ -14,9 +14,9 @@ import {
 import CompanyAndLogo from '../../components/UI/CompanyAndLogo/CompanyAndLogo';
 import expoContractToWord from '../../util/Word/expoContract_word';
 
-import styles from './ExpoContract.module.css';
+import styles from './AreaContract.module.css';
 
-const ExpoContract = (props) => {
+const AreaContract = (props) => {
   const date = new Date();
   const [clearForm, setClearForm] = useState(false);
   const [companyLogo, setCompanyLogo] = useState('');
@@ -329,4 +329,4 @@ const ExpoContract = (props) => {
   );
 };
 
-export default ExpoContract;
+export default AreaContract;

@@ -6,7 +6,7 @@ import './App.css';
 import Layout from './hoc/Layout/Layout';
 
 const ExpoContract =  React.lazy(() => {
-  return import('./containers/ExpoContract/ExpoContract');
+  return import('./containers/AreaContract/AreaContract');
 });
 
 const CustomContract =  React.lazy(() => {
@@ -27,7 +27,7 @@ let routes = (
   <Switch>
       <Route path="/contact" exact component={ContactPage} />  
       <Route path="/custom-contract" exact component={CustomContract} />
-      <Route path="/expo-contract" exact component={ExpoContract} />
+      <Route path="/area-contract" exact component={ExpoContract} />
       <Route path="/" exact component={HomePage} />
       <Redirect to="/" />
   </Switch>
